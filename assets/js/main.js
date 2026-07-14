@@ -1,9 +1,36 @@
-const offset = 0;
-const limit = 20;
-const url = `https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=${limit}`;
+function convertTypeToLi(pokemonTypes){
+  return pokemonTypes.map((typeSlot) => `<li class="type">${typeSlot.type.name}</li>`)
+}
 
-fetch(url) //este é o método que faz a requisição para uma web API. Ele retorna uma Promise que, quando resolvida, nos dá a resposta da requisição.
-    .then((response) => response.json()) //este método transforma a resposta em um objeto JSON. Para isso, ele retorna uma Promise que, quando resolvida, dá o objeto JSON.
-    .then((jsonBody) => console.log(jsonBody)) //este método recebe o objeto JSON e o imprime no console. Tenha em vista que ele foi encadeado ao método anterior, ou seja, ele só será executado quando a Promise do método anterior for resolvida.
-    .catch((error) => console.log(error)) //este método é chamado quando a Promise é rejeitada, ou seja, quando ocorre algum erro na requisição. Ele recebe o objeto de erro e o imprime no console.
-    .finally(() => console.log('Requisição finalizada!')); //este método é chamado quando a Promise é resolvida ou rejeitada, ou seja, quando a requisição é finalizada. Ele não recebe nenhum parâmetro e imprime uma mensagem no console.
+function convertPokemonToLi(pokemon) {
+    return `
+        <li class="pokemon">
+          <span class="id">#${pokemon.id}</span>
+          <span class="name">${pokemon.name}</span>
+
+          <div class="details">
+
+            <ol class="types">
+              ${convertTypeToLi(pokemon.types).join('')}
+            </ol>
+
+            <img src="${pokemon.sprites.other['official-artwork'].front_default}" alt="${pokemon.name}" />
+          </div>
+        </li>
+    `
+}
+
+const listaPokemon = document.querySelector('.listaPokemon')
+
+pokeApi.getPokemon().then((pokemonList = []) => {
+  //  ---------- Solucão Ruim ----------
+  // for (i = 0; i < pokemonList.length; i++){
+  //   const pokemon = pokemonList[i];
+  //   console.log(convertPokemonToHTML(pokemon));
+  //   listaPokemon.innerHTML += convertPokemonToHTML(pokemon)
+  // }
+
+  // ---------- Melhor solução ----------
+ 
+  listaPokemon.innerHTML = pokemonList.map(convertPokemonToLi).join('');
+})
