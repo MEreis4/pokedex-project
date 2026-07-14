@@ -20,4 +20,4 @@ In this image, I created an object named `pokeApi`. It has the methods `getPokem
 After all url within the `limit` being processed, the `getPokemon` method will return a new array of pokemon with each one's details.
 All of that was in `poke-api.js` file
 <img width="224" height="54" alt="image" src="https://github.com/user-attachments/assets/88cf6dba-a930-4fec-aac7-bdc4402ed5c8" />
-Heading to `main.js`, we use the returned value in `getPokemon` method and add them in the page. But first of all, I initially created a function that converts every pokemon in the array to a `<li>`. Also a function which returns the pokemon types to their respective places inside it.
+Heading to `main.js`, we use the returned value in `getPokemon` method and add them in the page. But first of all, I initially created a function that converts every pokemon in the array to a <li>. Also a function which returns the pokemon types to their respective places inside it.
