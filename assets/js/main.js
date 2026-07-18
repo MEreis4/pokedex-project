@@ -1,11 +1,13 @@
-// function convertTypeToLi(pokemonTypes){
-//   return pokemonTypes.map((typeSlot) => `<li class="type">${typeSlot.type.name}</li>`)
-// }
+const listaPokemon = document.querySelector('.listaPokemon');
+const loadMoreButton = document.getElementById('loadMoreButton');
+
+const limit = 6;
+let offset = 0;
 
 function convertPokemonToLi(pokemon) {
     return `
         <li class="pokemon ${pokemon.mainType}">
-          <span class="id">#${pokemon.order}</span>
+          <span class="id">#${pokemon.id}</span>
           <span class="name">${pokemon.name}</span>
 
           <div class="details">
@@ -20,17 +22,15 @@ function convertPokemonToLi(pokemon) {
     `
 }
 
-const listaPokemon = document.querySelector('.listaPokemon')
+function loadPokemon(offset, limit){
+  pokeApi.getPokemon(offset, limit).then((pokemonList = []) => {
+  listaPokemon.innerHTML += pokemonList.map(convertPokemonToLi).join('');
+  });
+}
 
-pokeApi.getPokemon().then((pokemonList = []) => {
-  //  ---------- Solucão Ruim ----------
-  // for (i = 0; i < pokemonList.length; i++){
-  //   const pokemon = pokemonList[i];
-  //   console.log(convertPokemonToHTML(pokemon));
-  //   listaPokemon.innerHTML += convertPokemonToHTML(pokemon)
-  // }
+loadPokemon(offset, limit);
 
-  // ---------- Melhor solução ----------
- 
-  listaPokemon.innerHTML = pokemonList.map(convertPokemonToLi).join('');
-})
+loadMoreButton.addEventListener('click', () =>{
+  offset += limit;
+  loadPokemon(offset, limit);
+});
