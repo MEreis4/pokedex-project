@@ -7,7 +7,7 @@ const maxRecords = 151;
 
 function convertPokemonToLi(pokemon) {
     return `
-        <li class="pokemon ${pokemon.mainType}">
+        <li class="pokemon ${pokemon.mainType}" data-id="${pokemon.id}">
           <span class="id">#${pokemon.id}</span>
           <span class="name">${pokemon.name}</span>
 
@@ -22,10 +22,23 @@ function convertPokemonToLi(pokemon) {
         </li>
     `
 }
+function openPokemonTab(id){
+  
+}
 
 function loadPokemon(offset, limit){
   pokeApi.getPokemon(offset, limit).then((pokemonList = []) => {
-  listaPokemon.innerHTML += pokemonList.map(convertPokemonToLi).join('');
+    listaPokemon.innerHTML += pokemonList.map(convertPokemonToLi).join('');
+
+    // Event Delegation - Delegação de Eventos
+    listaPokemon.addEventListener('click', (event)=>{
+      const li = event.target.closest('li');
+
+      if (li){
+        const pokemonId = li.dataset.id
+        console.log(pokemonId)
+      }
+    });
   });
 }
 
