@@ -35,8 +35,8 @@ function loadPokemon(offset, limit){
       const li = event.target.closest('li');
 
       if (li){
-        const pokemonId = li.dataset.id
-        console.log(pokemonId)
+        const pokemonId = li.dataset.id;
+        console.log(pokemonId);
       }
     });
   });

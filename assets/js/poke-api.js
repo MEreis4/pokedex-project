@@ -1,7 +1,7 @@
 const pokeApi = {};
 
 pokeApi.convertPokeApiDetailToModel = (details) =>{
-    const pokemon = new Pokemon
+    const pokemon = new Pokemon;
     pokemon.id = details.id;
     pokemon.name = details.name;
     pokemon.types = details.types.map((typeSlot) => typeSlot.type.name);
